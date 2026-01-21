@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(global-reference)",
+      "Skill(global-reference:*)"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\John Vickrey\\.claude\\skills"
+    ]
+  },
+  "enabledPlugins": {
+    "php-lsp@claude-plugins-official": true
+  }
+}

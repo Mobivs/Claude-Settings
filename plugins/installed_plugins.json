@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "plugins": {
+    "php-lsp@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "C:\\Users\\John Vickrey\\.claude\\plugins\\cache\\claude-plugins-official\\php-lsp\\1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2025-12-28T21:49:57.219Z",
+        "lastUpdated": "2025-12-28T21:49:57.219Z",
+        "isLocal": true
+      }
+    ]
+  }
+}
