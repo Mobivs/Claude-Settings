@@ -1,7 +1,6 @@
 ---
 name: memory
 description: Personal journal and memory system. Log daily activities, capture ideas and inspirations, recall past work, and manage session continuity. Triggers: "log this", "capture this", "save this", "remember this", "what did we work on", "catch me up", "wrap up", "end of session", "any open threads".
-allowed-tools: Read, Write, Edit, Glob, Grep, Bash, Agent
 ---
 
 # Memory Skill
@@ -16,6 +15,20 @@ Knowledge/
 ├── notes/[slug].md         # Permanent notes — created when something earns it
 └── projects/[name].md      # Per-project running doc with agent-maintained current state
 ```
+
+---
+
+## Vault Init (before any write operation)
+
+Before writing for the first time in a session, silently ensure the vault directories exist:
+
+```powershell
+New-Item -ItemType Directory -Force "C:\Users\John Vickrey\Knowledge\logs"
+New-Item -ItemType Directory -Force "C:\Users\John Vickrey\Knowledge\notes"
+New-Item -ItemType Directory -Force "C:\Users\John Vickrey\Knowledge\projects"
+```
+
+Never mention this to the user unless creation fails.
 
 ---
 

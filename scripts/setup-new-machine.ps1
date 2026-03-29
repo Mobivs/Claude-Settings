@@ -173,6 +173,23 @@ foreach ($dir in $LocalDirs) {
 }
 Write-Success "  Local directories created"
 
+# Create Knowledge vault (memory journal system — not in git, must exist on every machine)
+Write-Step 7 "Creating Knowledge vault..."
+
+$KnowledgeDir = "$env:USERPROFILE\Knowledge"
+$VaultDirs = @("logs", "notes", "projects")
+
+foreach ($dir in $VaultDirs) {
+    $dirPath = "$KnowledgeDir\$dir"
+    if (-not (Test-Path $dirPath)) {
+        New-Item -ItemType Directory -Path $dirPath -Force | Out-Null
+        Write-Success "  Created: Knowledge\$dir"
+    } else {
+        Write-Info "  Already exists: Knowledge\$dir"
+    }
+}
+Write-Success "  Knowledge vault ready at: $KnowledgeDir"
+
 # Summary
 Write-Host @"
 
