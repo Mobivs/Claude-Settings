@@ -173,20 +173,52 @@ foreach ($dir in $LocalDirs) {
 }
 Write-Success "  Local directories created"
 
-# Create Knowledge vault (memory journal system — not in git, must exist on every machine)
-Write-Step 7 "Creating Knowledge vault..."
+# Clone Knowledge vault (synced via GitHub — Mobivs/Knowledge, private repo)
+Write-Step 7 "Setting up Knowledge vault..."
 
 $KnowledgeDir = "$env:USERPROFILE\Knowledge"
-$VaultDirs = @("logs", "notes", "projects")
+$KnowledgeRepo = "https://github.com/Mobivs/Knowledge.git"
 
-foreach ($dir in $VaultDirs) {
+if (Test-Path "$KnowledgeDir\.git") {
+    Write-Info "  Knowledge vault already cloned. Pulling latest..."
+    Push-Location $KnowledgeDir
+    git pull --rebase --quiet 2>&1
+    Pop-Location
+    Write-Success "  Knowledge vault up to date"
+} elseif (Test-Path $KnowledgeDir) {
+    Write-Warn "  Knowledge folder exists but is not a git repo."
+    Write-Warn "  Back it up and clone fresh: git clone $KnowledgeRepo `"$KnowledgeDir`""
+} else {
+    Write-Info "  Cloning Knowledge vault from GitHub..."
+    git clone $KnowledgeRepo $KnowledgeDir 2>&1
+    Write-Success "  Knowledge vault cloned to: $KnowledgeDir"
+}
+
+# Ensure vault directories exist
+foreach ($dir in @("logs", "notes", "projects")) {
     $dirPath = "$KnowledgeDir\$dir"
     if (-not (Test-Path $dirPath)) {
         New-Item -ItemType Directory -Path $dirPath -Force | Out-Null
-        Write-Success "  Created: Knowledge\$dir"
-    } else {
-        Write-Info "  Already exists: Knowledge\$dir"
     }
+}
+
+# Set up auto-sync scheduled task
+Write-Step 8 "Setting up Knowledge vault auto-sync..."
+$syncScript = "$KnowledgeDir\sync.ps1"
+if (Test-Path $syncScript) {
+    $taskName = "Knowledge Vault Sync"
+    $existingTask = Get-ScheduledTask -TaskName $taskName -ErrorAction SilentlyContinue
+    if ($existingTask) {
+        Write-Info "  Scheduled task '$taskName' already exists"
+    } else {
+        $action = New-ScheduledTaskAction -Execute 'powershell.exe' -Argument "-ExecutionPolicy Bypass -WindowStyle Hidden -File `"$syncScript`""
+        $trigger = New-ScheduledTaskTrigger -Once -At (Get-Date) -RepetitionInterval (New-TimeSpan -Minutes 5) -RepetitionDuration (New-TimeSpan -Days 3650)
+        $settings = New-ScheduledTaskSettingsSet -StartWhenAvailable -DontStopOnIdleEnd -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries
+        Register-ScheduledTask -TaskName $taskName -Action $action -Trigger $trigger -Settings $settings -Description 'Auto-sync Knowledge vault to GitHub every 5 minutes' -Force | Out-Null
+        Write-Success "  Auto-sync scheduled: every 5 minutes"
+    }
+} else {
+    Write-Warn "  sync.ps1 not found in vault — auto-sync not configured"
 }
 Write-Success "  Knowledge vault ready at: $KnowledgeDir"
 
@@ -202,11 +234,13 @@ Write-Host @"
 Write-Info "Next steps:"
 Write-Host "  1. Restart Claude Code to load the new configuration"
 Write-Host "  2. Verify skills are working: /global-reference"
-Write-Host "  3. Check MCP servers: /mcp"
+Write-Host "  3. Test memory system: /memory"
+Write-Host "  4. Check MCP servers: /mcp"
 Write-Host ""
 Write-Info "Your backup is at: $BackupDir"
 Write-Host "  You can delete it once you've verified everything works."
 Write-Host ""
-Write-Info "To sync settings in the future, run:"
-Write-Host "  cd ~/.claude && ./scripts/sync.ps1"
+Write-Info "Two repos keep everything in sync:"
+Write-Host "  Settings: cd ~/.claude && git pull origin main"
+Write-Host "  Knowledge: auto-syncs every 5 min (Task Scheduler)"
 Write-Host ""

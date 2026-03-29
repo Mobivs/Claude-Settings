@@ -12,7 +12,7 @@ This is the master reference for S. Vickrey's global Claude Code setup. Use this
 
 ## Directory Structure Overview
 
-### Claude Code Configuration (`~/.claude/` = `~/.claude\`)
+### Claude Code Configuration (`~/.claude/` — synced via Git: `Mobivs/Claude-Settings`)
 
 ```
 ~/.claude/
@@ -69,7 +69,7 @@ Contains:
 
 ---
 
-### Knowledge Base (`~/Knowledge/` = `~/Knowledge\`)
+### Knowledge Vault (`~/Knowledge/` — synced via Git: `Mobivs/Knowledge`, auto-sync every 5 min)
 
 ```
 Knowledge/

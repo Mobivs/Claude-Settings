@@ -8,7 +8,7 @@ S. Vickrey is a developer and entrepreneur who works across multiple projects da
 
 ## Memory System
 
-S. Vickrey uses a personal journal and memory system managed by the `/memory` skill. It stores daily logs, captured ideas, discoveries, and project state in `~/Knowledge/`.
+S. Vickrey uses a personal journal and memory system managed by the `/memory` skill. It stores daily logs, captured ideas, discoveries, and project state in `~/Knowledge/` (synced across machines via GitHub — `Mobivs/Knowledge`, auto-sync every 5 min).
 
 ### Automatic Behaviors
 

@@ -10,7 +10,7 @@ A global knowledge management system that spans all your projects. Track what yo
 
 ## Directory Structure
 
-All files are stored in `C:\Users\John Vickrey\Knowledge\`:
+All files are stored in `~/Knowledge/`:
 
 ```
 Knowledge/
@@ -47,7 +47,7 @@ Use this skill when the user:
 Create or append to today's log file:
 
 ```
-C:\Users\John Vickrey\Knowledge\logs\YYYY-MM-DD.md
+~/Knowledge/logs\YYYY-MM-DD.md
 ```
 
 Format:
@@ -85,7 +85,7 @@ When the user says "end of day" or "wrap up":
 When something important is learned, add it to the appropriate topic file:
 
 ```
-C:\Users\John Vickrey\Knowledge\lessons\{topic}.md
+~/Knowledge/lessons\{topic}.md
 ```
 
 Format:
@@ -123,7 +123,7 @@ Format:
 For frequently-needed commands or patterns:
 
 ```
-C:\Users\John Vickrey\Knowledge\references\{topic}.md
+~/Knowledge/references\{topic}.md
 ```
 
 Format:
@@ -145,17 +145,17 @@ Brief explanation
 
 ### Find Lessons About a Topic
 ```bash
-grep -r "search term" "C:\Users\John Vickrey\Knowledge\lessons\"
+grep -r "search term" "~/Knowledge/lessons\"
 ```
 
 ### Find in Logs
 ```bash
-grep -r "search term" "C:\Users\John Vickrey\Knowledge\logs\"
+grep -r "search term" "~/Knowledge/logs\"
 ```
 
 ### List All Lessons Files
 ```bash
-dir "C:\Users\John Vickrey\Knowledge\lessons\"
+dir "~/Knowledge/lessons\"
 ```
 
 ---
