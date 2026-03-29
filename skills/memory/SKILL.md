@@ -5,7 +5,7 @@ description: Personal journal and memory system. Log daily activities, capture i
 
 # Memory Skill
 
-Personal journal system backed by `C:\Users\John Vickrey\Knowledge\`.
+Personal journal system backed by `~/Knowledge/`.
 
 ## Vault Structure
 
@@ -23,9 +23,14 @@ Knowledge/
 Before writing for the first time in a session, silently ensure the vault directories exist:
 
 ```powershell
-New-Item -ItemType Directory -Force "C:\Users\John Vickrey\Knowledge\logs"
-New-Item -ItemType Directory -Force "C:\Users\John Vickrey\Knowledge\notes"
-New-Item -ItemType Directory -Force "C:\Users\John Vickrey\Knowledge\projects"
+New-Item -ItemType Directory -Force "$env:USERPROFILE\Knowledge\logs"
+New-Item -ItemType Directory -Force "$env:USERPROFILE\Knowledge\notes"
+New-Item -ItemType Directory -Force "$env:USERPROFILE\Knowledge\projects"
+```
+
+On Mac/Linux:
+```bash
+mkdir -p ~/Knowledge/{logs,notes,projects}
 ```
 
 Never mention this to the user unless creation fails.
@@ -55,7 +60,7 @@ Never ask the user to categorize what they're saving. Just save it.
 **SESSION OPEN** — when user starts a session or asks "catch me up" / "what were we working on" / "any open threads":
 
 Spawn an Agent with these instructions:
-> Read the last 7 days of daily logs from `C:\Users\John Vickrey\Knowledge\logs\`.
+> Read the last 7 days of daily logs from `~/Knowledge/logs/`.
 > Identify: (1) which projects were active, (2) any open threads or unresolved questions left in the logs, (3) any ideas flagged for follow-up.
 > Return a compact brief — 5 to 8 bullet points maximum. Never dump raw file content. Be terse.
 
@@ -77,7 +82,7 @@ Return that brief directly to the user as the session opener.
 **RECALL** — user asks about past work, a past idea, or what we know about a topic:
 
 Spawn an Agent with these instructions:
-> Search `C:\Users\John Vickrey\Knowledge\` for [topic / date / project].
+> Search `~/Knowledge/` for [topic / date / project].
 > Read the relevant sections. Return a compact summary — max 10 bullets. Never dump raw file content.
 
 ---

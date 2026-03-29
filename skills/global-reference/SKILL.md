@@ -6,13 +6,13 @@ allowed-tools: Read, Glob, Grep
 
 # Global Reference Guide
 
-This is the master reference for John Vickrey's global Claude Code setup. Use this to find resources, understand conventions, and maintain consistency across all projects.
+This is the master reference for S. Vickrey's global Claude Code setup. Use this to find resources, understand conventions, and maintain consistency across all projects.
 
 ---
 
 ## Directory Structure Overview
 
-### Claude Code Configuration (`~/.claude/` = `C:\Users\John Vickrey\.claude\`)
+### Claude Code Configuration (`~/.claude/` = `~/.claude\`)
 
 ```
 ~/.claude/
@@ -56,7 +56,7 @@ This is the master reference for John Vickrey's global Claude Code setup. Use th
 
 ### Claude Code Main Config (`~/.claude.json`)
 
-Location: `C:\Users\John Vickrey\.claude.json`
+Location: `~/.claude.json`
 
 Contains:
 - MCP server configurations
@@ -69,7 +69,7 @@ Contains:
 
 ---
 
-### Knowledge Base (`~/Knowledge/` = `C:\Users\John Vickrey\Knowledge\`)
+### Knowledge Base (`~/Knowledge/` = `~/Knowledge\`)
 
 ```
 Knowledge/
@@ -349,16 +349,16 @@ Uses YAML frontmatter + Markdown:
 
 | Resource | Path |
 |----------|------|
-| Main config | `C:\Users\John Vickrey\.claude.json` |
-| Permissions | `C:\Users\John Vickrey\.claude\settings.local.json` |
-| Agents | `C:\Users\John Vickrey\.claude\agents\` |
-| Skills | `C:\Users\John Vickrey\.claude\skills\` |
-| Templates | `C:\Users\John Vickrey\.claude\templates\` |
-| Daily logs | `C:\Users\John Vickrey\Knowledge\logs\` |
-| Permanent notes | `C:\Users\John Vickrey\Knowledge\notes\` |
-| Projects | `C:\Users\John Vickrey\Knowledge\projects\` |
-| Legacy lessons | `C:\Users\John Vickrey\Knowledge\lessons\` |
-| Legacy references | `C:\Users\John Vickrey\Knowledge\references\` |
+| Main config | `~/.claude.json` |
+| Permissions | `~/.claude\settings.local.json` |
+| Agents | `~/.claude\agents\` |
+| Skills | `~/.claude\skills\` |
+| Templates | `~/.claude\templates\` |
+| Daily logs | `~/Knowledge\logs\` |
+| Permanent notes | `~/Knowledge\notes\` |
+| Projects | `~/Knowledge\projects\` |
+| Legacy lessons | `~/Knowledge\lessons\` |
+| Legacy references | `~/Knowledge\references\` |
 
 ---
 

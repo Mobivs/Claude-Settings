@@ -20,7 +20,7 @@ The system has two parts that must **both** exist on every machine:
 ## Vault Structure (must exist on every machine)
 
 ```
-C:\Users\John Vickrey\Knowledge\
+~/Knowledge/
 ├── logs\           # Daily journal — YYYY-MM-DD.md, one per day
 ├── notes\          # Permanent atomic notes (agent-created)
 └── projects\       # Per-project running docs (agent-maintained)
@@ -87,7 +87,7 @@ If you want cross-machine journal history, the simplest option is to sync `~/Kno
 
 ### "Skill runs but writes fail"
 - `~/Knowledge/` doesn't exist → run the vault init (see below)
-- Check the exact path: must be `C:\Users\John Vickrey\Knowledge\` on Windows
+- Check the exact path: must be `%USERPROFILE%\Knowledge\` on Windows, `~/Knowledge/` on Mac/Linux
 
 ### "Session open returns nothing / errors"
 - `~/Knowledge/logs/` is empty (new machine, no prior logs) — this is normal
@@ -95,9 +95,9 @@ If you want cross-machine journal history, the simplest option is to sync `~/Kno
 
 ### Vault Init (run manually if missing)
 ```powershell
-New-Item -ItemType Directory -Force "C:\Users\John Vickrey\Knowledge\logs"
-New-Item -ItemType Directory -Force "C:\Users\John Vickrey\Knowledge\notes"
-New-Item -ItemType Directory -Force "C:\Users\John Vickrey\Knowledge\projects"
+New-Item -ItemType Directory -Force "$env:USERPROFILE\Knowledge\logs"
+New-Item -ItemType Directory -Force "$env:USERPROFILE\Knowledge\notes"
+New-Item -ItemType Directory -Force "$env:USERPROFILE\Knowledge\projects"
 ```
 
 Or on Mac/Linux:
