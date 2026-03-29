@@ -2,7 +2,12 @@
   "permissions": {
     "allow": [
       "Skill(global-reference)",
-      "Skill(global-reference:*)"
+      "Skill(global-reference:*)",
+      "Bash(if [ -f \".security/canary-alerts.log\" ])",
+      "Bash(then echo \"Canary log exists\")",
+      "Bash(else echo \"No canary alerts logged\")",
+      "Bash(fi)",
+      "Bash(git config:*)"
     ],
     "additionalDirectories": [
       "C:\\Users\\John Vickrey\\.claude\\skills"

@@ -20,7 +20,8 @@ This is the master reference for John Vickrey's global Claude Code setup. Use th
 ├── settings.local.json        # Global permission settings
 │
 ├── agents/                    # Custom agents (available globally)
-│   └── hypothesis-driven-researcher.md
+│   ├── hypothesis-driven-researcher.md
+│   └── conversion-engineer.md
 │
 ├── skills/                    # Custom skills (available globally)
 │   ├── global-reference/      # THIS SKILL - master reference
@@ -72,22 +73,18 @@ Contains:
 
 ```
 Knowledge/
-├── logs/                      # Daily activity logs
-│   └── YYYY-MM-DD.md         # One file per day
+├── logs/                      # Daily journal — one file per day, one section per session
+│   └── YYYY-MM-DD.md
 │
-├── lessons/                   # Lessons learned by topic
-│   ├── claude-code.md        # Claude Code tips & tricks
-│   ├── tailwind-css.md       # Tailwind CSS lessons
-│   ├── php.md                # PHP patterns
-│   └── {topic}.md            # Add new topics as needed
+├── notes/                     # Permanent atomic notes — agent creates when something earns it
+│   └── YYYY-MM-DD-[slug].md
 │
-├── projects/                  # Project registry
-│   ├── _index.md             # Master index of all projects
-│   └── {project-slug}.md     # Individual project files
+├── projects/                  # Per-project running docs with agent-maintained current state
+│   ├── _index.md
+│   └── {project-slug}.md
 │
-└── references/                # Quick reference sheets
-    ├── tech-stacks.md        # Preferred stacks & why we like them
-    └── {topic}.md            # Command references, patterns
+├── lessons/                   # Legacy topic files (still readable, new captures go to daily log)
+└── references/                # Legacy quick references (still readable)
 ```
 
 ---
@@ -110,22 +107,84 @@ Located in: `~/.claude/agents/`
 
 **Template**: Uses `~/.claude/templates/research-notes-template.md`
 
+### ui-expert
+**File**: `ui-expert.md`
+**Purpose**: Professional UI design review of any web application — visual consistency, color systems, typography, spacing, layout, animations, responsive design, dark/light theme quality
+**Model**: Sonnet
+**Color**: Purple
+
+**When to use**:
+- Visual design review or audit of a web app
+- Inconsistent styling, colors, or spacing across pages
+- App looks unprofessional or unpolished
+- Need to bring UI up to production quality
+- Evaluating dark mode, glassmorphism, or theme implementation
+
+**Key capability**: Uses WebFetch to view the running app as users see it, plus reads source code for CSS/HTML/component issues.
+
+### ux-expert
+**File**: `ux-expert.md`
+**Purpose**: Professional UX review of any web application — navigation, user flows, accessibility (WCAG 2.2), error handling, loading states, data presentation, cognitive load, mobile experience
+**Model**: Sonnet
+**Color**: Blue
+
+**When to use**:
+- Usability review or audit of a web app
+- Users report confusion or difficulty
+- Accessibility audit needed (ARIA, keyboard, screen reader)
+- Need to improve user flows, error handling, or feedback
+- Evaluating data-heavy dashboards or security UIs
+
+**Key capability**: Uses WebFetch to experience the app as a user would, plus reviews source code for interaction quality, a11y, and error handling.
+
+### conversion-engineer
+**File**: `conversion-engineer.md`
+**Purpose**: Audit landing pages, diagnose unprofitable ads, design conversion funnels
+**Model**: Sonnet
+**Color**: Orange
+
+**When to use**:
+- Google/Meta/paid ads aren't converting profitably
+- Landing page audit needed
+- Designing post-click funnels
+- Understanding why traffic bounces
+- Fixing measurement/attribution issues
+- Building checkout flows or email sequences
+
+**Core Framework**: The 9 Conversion Factors (from 13K marketer study):
+1. Funnels (59.9% of winners)
+2. Multiple payment options (58.2%)
+3. Email sequences for non-buyers (47.9%)
+4. Multi-step checkouts (42.5%)
+5. Persona-specific copy (35.6%)
+6. Smart remarketing (33.4%)
+7. Video on landing pages (26.8%)
+8. Long descriptive pages (21.5%)
+9. Influencer/testimonial content (17.7%)
+
+**Key Insight**: Failed campaigns have 0-2 factors. Profitable campaigns have 5-7.
+
 ---
 
 ## Global Skills
 
 Located in: `~/.claude/skills/`
 
-### knowledge-base
-**Folder**: `knowledge-base/`
-**Purpose**: Track lessons learned, daily logs, and references across all projects
+### memory
+**Folder**: `memory/`
+**Purpose**: Personal journal and memory system — daily logs, ideas, discoveries, project state, session continuity
 
 **Triggers**:
-- "log this", "add to the log"
-- "record what we learned", "add to lessons"
-- "end of day", "wrap up"
-- "what did we do on X date"
-- "what do we know about X"
+- "log this", "save this", "capture this", "remember this"
+- "what did we work on", "catch me up", "any open threads"
+- "wrap up", "end of session", "signing off"
+- "what was that idea about X"
+
+**Architecture**: Skill (user-facing) + subagent (for recall/search — protects main context window)
+
+### knowledge-base *(legacy — superseded by memory skill)*
+**Folder**: `knowledge-base/`
+**Purpose**: Original knowledge tracking skill — use `/memory` instead for new work
 
 ### global-reference (this skill)
 **Folder**: `global-reference/`
@@ -296,9 +355,10 @@ Uses YAML frontmatter + Markdown:
 | Skills | `C:\Users\John Vickrey\.claude\skills\` |
 | Templates | `C:\Users\John Vickrey\.claude\templates\` |
 | Daily logs | `C:\Users\John Vickrey\Knowledge\logs\` |
-| Lessons | `C:\Users\John Vickrey\Knowledge\lessons\` |
+| Permanent notes | `C:\Users\John Vickrey\Knowledge\notes\` |
 | Projects | `C:\Users\John Vickrey\Knowledge\projects\` |
-| References | `C:\Users\John Vickrey\Knowledge\references\` |
+| Legacy lessons | `C:\Users\John Vickrey\Knowledge\lessons\` |
+| Legacy references | `C:\Users\John Vickrey\Knowledge\references\` |
 
 ---
 
