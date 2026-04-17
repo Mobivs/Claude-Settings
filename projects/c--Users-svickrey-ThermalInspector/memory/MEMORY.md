@@ -1,5 +1,13 @@
 # ThermalInspector Project Memory
 
+## User & Workflow
+- [Multi-app Python desktop workflow](user_multi_app_workflow.md) — ThermalInspector / inspection-master / yellow-pine context + direction
+- [Primary Windows shell is cmd.exe](user_cmd_primary_shell.md) — give CMD-compatible commands, not `~` paths
+
+## Claude settings sync
+- [Sync system topology](sync_system.md) — `~/.claude` → Mobivs/Claude-Settings; scoped auto-sync; C:\dev junctions
+- [Scope auto-commits, never git add -A](feedback_scoped_auto_commit.md) — automation must stage explicit paths
+
 ## Deployment Pipeline
 - See [deployment.md](deployment.md) for detailed build/deploy notes
 - **Global skill `python-deploy`** at `~/.claude/skills/python-deploy/` — templates to port this pipeline to new apps (inspection-master, yellow-pine). See [python_deploy_skill.md](python_deploy_skill.md)
