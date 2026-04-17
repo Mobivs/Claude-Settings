@@ -202,8 +202,22 @@ foreach ($dir in @("logs", "notes", "projects")) {
     }
 }
 
+# Project path normalization — share memories across machines
+Write-Step 8 "Project path normalization..."
+$pathNormScript = "$ClaudeDir\scripts\setup-path-normalization.ps1"
+if (Test-Path $pathNormScript) {
+    $answer = Read-Host "  Set up C:\dev junctions so project memories share across machines? [y/N]"
+    if ($answer -match '^[Yy]') {
+        & $pathNormScript
+    } else {
+        Write-Info "  Skipped. Run '$pathNormScript' later if you change your mind."
+    }
+} else {
+    Write-Warn "  setup-path-normalization.ps1 not found - skipping."
+}
+
 # Set up auto-sync scheduled task
-Write-Step 8 "Setting up Knowledge vault auto-sync..."
+Write-Step 9 "Setting up Knowledge vault auto-sync..."
 $syncScript = "$KnowledgeDir\sync.ps1"
 if (Test-Path $syncScript) {
     $taskName = "Knowledge Vault Sync"

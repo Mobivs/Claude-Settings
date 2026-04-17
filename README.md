@@ -593,4 +593,58 @@ When adding new skills/agents/templates:
 
 ---
 
-*Last updated: 2025-01-20*
+## Memory Sync & Path Normalization
+
+Project memories live at `~/.claude/projects/<sanitized-cwd>/memory/` where `<sanitized-cwd>` is derived from the absolute project path. This means memories only share between machines when the project's absolute path is **identical**.
+
+### The problem
+
+If one machine opens `C:\Users\svickrey\ThermalInspector` and another opens `C:\Users\John Vickrey\ThermalInspector`, they produce two different memory folders (`c--Users-svickrey-ThermalInspector` vs `c--Users-John_Vickrey-ThermalInspector`) that never merge.
+
+### The fix — C:\dev junctions
+
+On every machine, run:
+
+```powershell
+~/.claude/scripts/setup-path-normalization.ps1
+```
+
+This creates `C:\dev\` and junctions each user-profile project into it. From then on, open projects from `C:\dev\<project>` (in VS Code, terminals, etc.). Every machine produces the same memory folder name: `c--dev-<project>`.
+
+Junctions are persistent (survive reboots), need no admin, and `rmdir C:\dev\<project>` removes the junction without touching the target folder.
+
+### Migrating existing memories
+
+If a project already has memories at the old path:
+
+```bash
+mv ~/.claude/projects/c--Users-$USER-Foo ~/.claude/projects/c--dev-Foo
+```
+
+Commit on next sync — other machines pull the renamed folder.
+
+## Sync Scope
+
+`scripts/sync.sh` (called by the Stop hook) auto-commits **only** these paths:
+
+- `skills/` — custom skills
+- `agents/` — custom agents
+- `templates/` — file templates
+- `scripts/` — the sync/setup scripts themselves
+- `projects/*/memory/` — cross-machine memories (via gitignore negation)
+- `.gitignore`, `README.md`
+
+**Everything else requires manual `git add`.** In particular, `settings.json` is not auto-synced — this prevents per-session permission grants from propagating to all machines. To share a hook change or permission rule across machines:
+
+```bash
+cd ~/.claude
+git add settings.json
+git commit -m "settings: <what changed>"
+git push
+```
+
+Reason: Claude auto-adds Bash/Read/Edit permissions as you approve them during sessions. Letting those auto-sync means every machine's allowlist becomes a growing union of every command ever approved anywhere — noisy and machine-specific.
+
+---
+
+*Last updated: 2026-04-17*
