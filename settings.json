@@ -3,14 +3,51 @@
     "allow": [
       "Skill(global-reference)",
       "Skill(global-reference:*)",
-      "Bash(if [ -f \".security/canary-alerts.log\" ])",
-      "Bash(then echo \"Canary log exists\")",
-      "Bash(else echo \"No canary alerts logged\")",
-      "Bash(fi)",
-      "Bash(git config:*)"
+      "Bash(git log:*)",
+      "Read(//c/Users/svickrey/**)",
+      "Bash(\"C:\\\\Python311\\\\python.exe\" -m pip uninstall pathlib -y)",
+      "Bash(git restore:*)",
+      "Edit(~/.claude/skills/python-deploy/**)",
+      "Edit(/.claude/skills/deploy/**)",
+      "Skill(update-config)",
+      "Skill(update-config:*)",
+      "Bash(bash -c 'ls -la \"$HOME/.claude/scripts/sync.sh\" && head -1 \"$HOME/.claude/scripts/sync.sh\"')",
+      "Bash(bash __TRACKED_VAR__/.claude/scripts/sync.sh --pull)",
+      "Bash(echo \"---exit $?---\")",
+      "Bash(echo \"---SessionStart exit $?---\")",
+      "Bash(echo \"---Stop exit $?---\")"
     ],
     "additionalDirectories": [
-      "C:\\Users\\John Vickrey\\.claude\\skills"
+      "C:\\Users\\John Vickrey\\.claude\\skills",
+      "C:\\Users\\svickrey\\.claude"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$HOME/.claude/scripts/sync.sh\" --pull",
+            "shell": "bash",
+            "timeout": 30,
+            "statusMessage": "Syncing latest Claude settings..."
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$HOME/.claude/scripts/sync.sh\"",
+            "shell": "bash",
+            "timeout": 60,
+            "statusMessage": "Syncing Claude settings to remote..."
+          }
+        ]
+      }
     ]
   },
   "enabledPlugins": {
