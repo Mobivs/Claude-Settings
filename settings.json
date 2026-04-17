@@ -15,7 +15,10 @@
       "Bash(bash __TRACKED_VAR__/.claude/scripts/sync.sh --pull)",
       "Bash(echo \"---exit $?---\")",
       "Bash(echo \"---SessionStart exit $?---\")",
-      "Bash(echo \"---Stop exit $?---\")"
+      "Bash(echo \"---Stop exit $?---\")",
+      "Bash(cp ~/.claude/settings.json /tmp/settings-current.json)",
+      "Bash(git -C ~/.claude show HEAD:settings.json)",
+      "Read(//tmp/**)"
     ],
     "additionalDirectories": [
       "C:\\Users\\John Vickrey\\.claude\\skills",
