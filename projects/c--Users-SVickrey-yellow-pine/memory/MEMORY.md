@@ -1,0 +1,8 @@
+- [Powerline defect detection project](project_powerline_vit.md) — Training vision model for US powerline inspections; own images have magnification annotations, not standard ML annotations
+- [GREEN annotation meaning](feedback_green_annotations.md) — GREEN means "defect" in construction/visual reports but "normal" in thermal reports; filter by report_type
+- [Read-only production DBs](feedback_readonly_production.md) — Never modify thermal_inspector or company_ops; use separate yellow_pine DB for training data
+- [User learning style](user_learning.md) — Appreciates ML explanations tied to observable system behavior; learning through this project
+- [GPU VRAM management](project_gpu_vram.md) — Per-experiment VRAM tracking via pynvml; Sonnet sees headroom and learns to maximize batch sizes
+- [Live GPU dashboard](project_live_gpu_dashboard.md) — Real-time GPU monitoring via pynvml + SSE at /gpu and main dashboard badge
+- [Knowledge base setup](reference_knowledge_base.md) — Global CLAUDE.md triggers end-of-session logging; knowledge base at C:\Users\SVickrey\Knowledge\
+- [RTX 5090 upgrade proposal](project_gpu_upgrade.md) — Business justification doc ready; presentation Monday 2026-03-30

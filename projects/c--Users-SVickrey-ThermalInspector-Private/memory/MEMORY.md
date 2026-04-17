@@ -1,0 +1,2 @@
+- [Releases must be done from the signing machine](release_signing_machine.md) — this dev box has no signtool; flag at the start of any deploy conversation
+- [Release script doesn't commit code changes](release_script_commits.md) — code commits must be pushed BEFORE running release/build, or binary won't match git
