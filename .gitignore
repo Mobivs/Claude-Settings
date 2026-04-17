@@ -34,6 +34,9 @@ todos/
 plans/
 stats-cache.json
 history.jsonl
+backups/
+sessions/
+mcp-needs-auth-cache.json
 
 # -----------------------------------------------------------------------------
 # PLUGINS CACHE (plugins themselves are managed separately)
@@ -43,9 +46,13 @@ plugins/install-counts-cache.json
 plugins/marketplaces/
 
 # -----------------------------------------------------------------------------
-# PROJECTS (machine-specific project data)
+# PROJECTS — sync memories, not session transcripts
 # -----------------------------------------------------------------------------
-projects/
+# projects/<proj>/memory/           keep (shared context across machines)
+# projects/<proj>/<uuid>/ + *.jsonl ignore (session transcripts, machine-specific, large)
+projects/*/*
+!projects/*/memory/
+!projects/*/memory/**
 
 # -----------------------------------------------------------------------------
 # DOWNLOADS & MISC
