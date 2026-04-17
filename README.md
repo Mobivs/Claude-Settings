@@ -4,6 +4,26 @@ A version-controlled repository for managing Claude Code global configuration ac
 
 ---
 
+## ⚡ First Run On This Machine
+
+Run this ONCE per machine to normalize project paths so memories share across machines (see [Memory Sync & Path Normalization](#memory-sync--path-normalization) for what this does).
+
+**From CMD:**
+```
+powershell -ExecutionPolicy Bypass -File "%USERPROFILE%\.claude\scripts\setup-path-normalization.ps1"
+```
+
+**From PowerShell:**
+```powershell
+& "$env:USERPROFILE\.claude\scripts\setup-path-normalization.ps1"
+```
+
+After it runs, open all projects going forward from `C:\dev\<project>` instead of `C:\Users\<you>\<project>`.
+
+You only need to do this once per machine. A junction `C:\dev\<project> → C:\Users\<you>\<project>` survives reboots.
+
+---
+
 ## Table of Contents
 
 - [Quick Start](#quick-start)
@@ -603,10 +623,16 @@ If one machine opens `C:\Users\svickrey\ThermalInspector` and another opens `C:\
 
 ### The fix — C:\dev junctions
 
-On every machine, run:
+On every machine, run ONE of these (see also [First Run On This Machine](#-first-run-on-this-machine) at the top of this README):
 
+**CMD:**
+```
+powershell -ExecutionPolicy Bypass -File "%USERPROFILE%\.claude\scripts\setup-path-normalization.ps1"
+```
+
+**PowerShell:**
 ```powershell
-~/.claude/scripts/setup-path-normalization.ps1
+& "$env:USERPROFILE\.claude\scripts\setup-path-normalization.ps1"
 ```
 
 This creates `C:\dev\` and junctions each user-profile project into it. From then on, open projects from `C:\dev\<project>` (in VS Code, terminals, etc.). Every machine produces the same memory folder name: `c--dev-<project>`.
