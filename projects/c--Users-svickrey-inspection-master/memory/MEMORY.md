@@ -27,7 +27,10 @@
 - `psycopg2-binary` must be installed in venv
 - Source scanning tests verify no SQLite patterns remain in migrated files
 
-## Migration Status (Phases 1-7 complete)
+## SQLite -> PostgreSQL Migration (complete, stable)
 - All SQLite patterns converted across ~30 files
 - Migration scripts: `scripts/migrate_sqlite_to_pg.py`, `scripts/verify_migration.py`
 - Original SQLite data preserved at `data/database/inspections.db` (19.6 MB)
+
+## NiceGUI UI Migration
+- [NiceGUI Migration](project_nicegui_migration.md) — Phases 0-5 + 7 complete; Phase 6 (menus/shortcuts/backup) deferred. Open issues logged inside.
