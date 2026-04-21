@@ -43,8 +43,15 @@ DIST_INSTALLER = DIST_DIR / 'installer'
 sys.path.insert(0, str(SCRIPT_DIR))
 from build import read_version, bump_version, find_iscc, SPEC_FILE  # noqa: E402
 
+# UPDATE_PATH is defined in version.py (the single source of truth — the
+# installed updater reads it from the same module). Duplicating it here bit
+# us once when version.py was edited but release.py's copy was not, and the
+# deploy step silently skipped with "network share not accessible".
+sys.path.insert(0, str(PROJECT_ROOT))
+from version import UPDATE_PATH as _UPDATE_PATH_STR  # noqa: E402
+
 # --- Project config (review when porting) ---
-UPDATE_PATH = Path({{UPDATE_PATH_RAW}})
+UPDATE_PATH = Path(_UPDATE_PATH_STR)
 SIGNTOOL_PATH = Path({{SIGNTOOL_PATH_RAW}})
 TIMESTAMP_URL = '{{TIMESTAMP_URL}}'
 GIT_BRANCH = '{{GIT_BRANCH}}'
@@ -464,7 +471,14 @@ def do_git_commit_tag_push(version: str, signed: bool, deployed: bool,
         print(f"  Would push {GIT_BRANCH} + tag to origin")
         return
 
-    git('add', *files_to_add)
+    # -f is required: build/installer.iss and build/version_info.txt live
+    # under build/, which is typically in .gitignore (PyInstaller's temp dir
+    # lives there too). Exception lines like `!build/*.iss` un-ignore the
+    # tracked files for git's matching, but `git add` still warns "paths
+    # are ignored by one of your .gitignore files" and exits 1 — because
+    # git checks the *parent* directory's ignore state too. -f bypasses
+    # the warning and still stages normally.
+    git('add', '-f', *files_to_add)
     git('commit', '-m', f'chore: deploy v{version}')
     print(f"  Committed: chore: deploy v{version}")
 

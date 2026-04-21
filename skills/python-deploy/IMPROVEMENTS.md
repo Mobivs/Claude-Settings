@@ -12,6 +12,9 @@ The templates already include the high-value, low-effort improvements from the o
 6. Auto release notes from `git log <last-tag>..HEAD --oneline`
 7. Non-interactive `--yes` mode
 8. Pre-build smoke import test
+9. `UPDATE_PATH` imported from `version.py` in `release.py` (single source of truth)
+10. `git add -f` in step 10 (survives tracked-files-under-gitignored-parent)
+11. NiceGUI + PyWebView variant documented with windowed-mode hardening recipe
 
 ## Opt-in enhancements
 
