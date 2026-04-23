@@ -34,3 +34,6 @@
 
 ## NiceGUI UI Migration
 - [NiceGUI Migration](project_nicegui_migration.md) — Phases 0-5 + 7 complete; Phase 6 (menus/shortcuts/backup) deferred. Open issues logged inside.
+
+## Open tasks
+- [shared.env Tier 2 ACL hardening](project_shared_env_tier2.md) — Tier 1 done 2026-04-24; Tier 2 needs IT to create `LYTHIX\NEC-Inspection-Users` AD group, then move file + restrict read.
