@@ -12,9 +12,9 @@
 - See [deployment.md](deployment.md) for detailed build/deploy notes
 - **Global skill `python-deploy`** at `~/.claude/skills/python-deploy/` — templates to port this pipeline to new apps (inspection-master, yellow-pine). See [python_deploy_skill.md](python_deploy_skill.md)
 - **PENDING (target 2026-04-17)**: Pipeline back-port uncommitted in working tree — see [pipeline_backport_pending.md](pipeline_backport_pending.md)
-- Current version: 1.1.13 (as of 2026-04-17)
+- Current version: 1.1.14 (as of 2026-04-27)
 - Use `/deploy` skill for automated deployments
-- `build/release.py` automates full pipeline (requires interactive terminal, not Claude's Bash)
+- `build/release.py` runs fine from Claude's Bash via `printf 'y\ny\n' | python build/release.py ...` (auto-yes for SafeNet/proceed prompts; SafeNet PIN dialog is a Windows GUI popup that doesn't block subprocess)
 - Pipeline builds entirely on C: drive (~2 min), no H: drive needed
 
 ## Key Architecture
